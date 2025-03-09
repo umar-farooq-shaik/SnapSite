@@ -99,25 +99,25 @@ function ChatView() {
       <div className="flex-1 overflow-y-scroll scrollbar-hide pl-1">
         {messages?.length > 0 && messages?.map((msg, index) => (
           <div
-            key={index}
-            className="p-3 rounded-lg mb-2 flex gap-2 items-center justify-start leading-7"
-            style={{
-              backgroundColor: Colors.CHAT_BACKGROUND,
-            }}
-          >
-            {msg?.role == 'user' && (
-              <Image
-                src={userDetail?.picture}
-                alt="userImage"
-                width={35}
-                height={35}
-                className="rounded-full"
-              />
-            )}
-            <ReactMarkdown className="flex flex-col">
-              {msg?.content}
-            </ReactMarkdown>
-          </div>
+          key={index}
+          className="p-3 rounded-lg mb-2 flex gap-2 items-start justify-start leading-7"
+          style={{
+            backgroundColor: Colors.CHAT_BACKGROUND,
+          }}
+        >
+          {msg?.role == 'user' && (
+            <Image
+              src={userDetail?.picture}
+              alt="userImage"
+              width={35}
+              height={35}
+              className="rounded-full"
+            />
+          )}
+          <ReactMarkdown className="flex flex-col">
+            {msg?.content}
+          </ReactMarkdown>
+        </div>
         ))}
         {loading && (
           <div

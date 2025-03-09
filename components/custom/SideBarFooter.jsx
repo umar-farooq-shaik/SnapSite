@@ -3,9 +3,11 @@ import { HelpCircle, LogOut, Settings, Wallet } from 'lucide-react';
 import React from 'react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
+import { useSidebar } from '@/components/ui/sidebar';
 
 function SideBarFooter() {
   const router = useRouter();
+  const { setOpen } = useSidebar();
   const options = [
     {
       name: 'Settings',
@@ -25,10 +27,11 @@ function SideBarFooter() {
       icon: LogOut,
     },
   ];
-  const onOptionClock = (option) => {
-    console.log(option);
+
+  const onOptionClick = (option) => {
     if (option.path) {
       router.push(option.path);
+      setOpen(false);
     }
   };
 
@@ -36,7 +39,7 @@ function SideBarFooter() {
     <div className="mb-2">
       {options.map((option, index) => (
         <Button
-          onClick={() => onOptionClock(option)}
+          onClick={() => onOptionClick(option)}
           key={index}
           variant="ghost"
           className="w-full flex justify-start"
@@ -50,3 +53,9 @@ function SideBarFooter() {
 }
 
 export default SideBarFooter;
+
+
+
+
+
+

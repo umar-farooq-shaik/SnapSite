@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from '../ui/button';
 import Colors from '@/data/Colors';
 import { UserDetailContext } from '@/context/UserDetailContext';
@@ -9,59 +9,62 @@ import { Download, Rocket } from 'lucide-react';
 import { useSidebar } from '../ui/sidebar';
 import { usePathname } from 'next/navigation';
 import { ActionContext } from '@/context/ActionContext';
+import SignInDialog from '../custom/SignInDialog';
 
 function Header() {
-  const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const { userDetail } = useContext(UserDetailContext);
   const { action, setAction } = useContext(ActionContext);
   const { toggleSidebar } = useSidebar();
   const pathname = usePathname();
-  const onActionBtn =(actn) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const onActionBtn = (actn) => {
     setAction({
       actionType: actn,
-      timeStamp: Date.now()
-    })
+      timeStamp: Date.now(),
+    });
+  };
 
-  }
   return (
-    <div className="p-4 flex justify-between items-center">
-            {/* Logo and SnapSite text together */}
-            <Link href={'/'} className="flex items-center gap-2">
+    <div className="p-4 flex justify-between items-center relative">
+      {/* Logo and SnapSite text */}
+      <Link href={'/'} className="flex items-center gap-2">
         <div className="w-[40px] h-[40px] overflow-hidden rounded-full">
           <Image src="/logo2.png" alt="logo" width={40} height={40} />
         </div>
         <div className="font-bold text-3xl">SnapSite</div>
       </Link>
+
       {!userDetail?.name ? (
         <div className="flex gap-5">
-          <Button variant="ghost">Sign In</Button>
           <Button
             className="text-white"
-            style={{
-              backgroundColor: Colors.BLUE,
-            }}
+            style={{ backgroundColor: Colors.BLUE }}
+            onClick={() => setOpenDialog(true)}
           >
-            Get Started
+            Sign In
           </Button>
         </div>
       ) : (
-        <div className="flex gap-5 items-center">
+        <>
+          {/* Centering Export & Deploy Buttons */}
           {pathname.includes('/workspace/') && (
-            <>
+            <div className="absolute left-1/2 transform -translate-x-1/2 flex gap-4">
               <Button variant="ghost" onClick={() => onActionBtn('export')}>
                 <Download /> Export
               </Button>
               <Button
                 onClick={() => onActionBtn('deploy')}
                 className="text-white"
-                style={{
-                  backgroundColor: Colors.BLUE,
-                }}
+                style={{ backgroundColor: Colors.BLUE }}
               >
                 <Rocket /> Deploy
               </Button>
-            </>
+            </div>
           )}
-          {userDetail && (
+
+          {/* User Image in Top Right */}
+          <div className="absolute top-4 right-4">
             <Image
               onClick={toggleSidebar}
               src={userDetail?.picture}
@@ -70,11 +73,13 @@ function Header() {
               height={40}
               className="rounded-full cursor-pointer object-cover"
             />
-          )}
-        </div>
+          </div>
+        </>
       )}
+      <SignInDialog openDialog={openDialog} closeDialog={setOpenDialog} />
     </div>
   );
 }
 
 export default Header;
+

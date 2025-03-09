@@ -22,6 +22,11 @@ function WorkspaceHistory() {
     setWorkSpaceList(result);
   };
 
+  const generateTitle = (content) => {
+    const words = content.split(' ');
+    return words.slice(0, 4).join(' ') + (words.length > 4 ? '...' : '');
+  };
+
   return (
     <div>
       <h2 className="font-medium text-lg">Your Chats</h2>
@@ -29,8 +34,8 @@ function WorkspaceHistory() {
         {workspaceList &&
             workspaceList.slice().reverse().map((workspace, index) => (
             <Link key={index} href={'/workspace/' + workspace?._id}>
-              <h2 onClick={toggleSidebar} className="text-sm text-gray-400 mt-2 font-light hover:text-white cursor-pointer">
-                {workspace?.messages[0]?.content}
+              <h2 onClick={toggleSidebar} className="text-sm text-gray-400 mt-2 font-light hover:text-white cursor-pointer truncate">
+                {generateTitle(workspace?.messages[0]?.content)}
               </h2>
             </Link>
           ))}

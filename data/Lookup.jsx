@@ -76,22 +76,22 @@ export default config;
   PRICING_OPTIONS:[
     {
       name:'Basic',
-      tokens:'50K',
-      value:50000,
+      tokens:'50',
+      value:50,
       desc:'Ideal for hobbyists and casual users for light, exploratory use.',
       price:4.99
     },
     {
       name:'Starter',
-      tokens:'120K',
-      value:120000,
+      tokens:'120',
+      value:120,
       desc:'Designed for professionals who need to use SnapSite a few times per week.',
       price:9.99
     },
     {
       name:'Pro',
-      tokens:'2.5M',
-      value:2500000,
+      tokens:'250',
+      value:250,
       desc:'Designed for professionals who need to use SnapSite a few times per week.',
       price:19.99
     },
