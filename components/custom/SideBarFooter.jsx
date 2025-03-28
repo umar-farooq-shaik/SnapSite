@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
+import { googleLogout } from '@react-oauth/google';
 
 function SideBarFooter() {
   const router = useRouter();
@@ -29,7 +30,12 @@ function SideBarFooter() {
   ];
 
   const onOptionClick = (option) => {
-    if (option.path) {
+    if (option.name === 'Sign Out') {
+      googleLogout();
+      localStorage.removeItem('user');
+      router.push('/');
+      setOpen(false);
+    } else if (option.path) {
       router.push(option.path);
       setOpen(false);
     }
@@ -53,9 +59,3 @@ function SideBarFooter() {
 }
 
 export default SideBarFooter;
-
-
-
-
-
-
