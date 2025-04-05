@@ -26,58 +26,102 @@ function Header() {
   };
 
   return (
-    <div className="p-4 flex justify-between items-center relative">
-      {/* Logo and SnapSite text */}
+    <div className="p-4 flex flex-col gap-3">
+    {/* --- Desktop Row --- */}
+    <div className="hidden sm:flex justify-between items-center">
+      {/* Left: Logo + Brand */}
       <Link href={'/'} className="flex items-center gap-2">
         <div className="w-[40px] h-[40px] overflow-hidden rounded-full">
           <Image src="/logo2.png" alt="logo" width={40} height={40} />
         </div>
         <div className="font-bold text-3xl">SnapSite</div>
       </Link>
-
-      {!userDetail?.name ? (
-        <div className="flex gap-5">
+  
+      {/* Center: Export + Deploy */}
+      {userDetail?.name && pathname.includes('/workspace/') && (
+        <div className="flex gap-4">
+          <Button variant="ghost" onClick={() => onActionBtn('export')}>
+            <Download className="mr-1" /> Export
+          </Button>
           <Button
+            onClick={() => onActionBtn('deploy')}
             className="text-white"
             style={{ backgroundColor: Colors.BLUE }}
-            onClick={() => setOpenDialog(true)}
           >
-            Sign In
+            <Rocket className="mr-1" /> Deploy
           </Button>
         </div>
-      ) : (
-        <>
-          {/* Centering Export & Deploy Buttons */}
-          {pathname.includes('/workspace/') && (
-            <div className="absolute left-1/2 transform -translate-x-1/2 flex gap-4">
-              <Button variant="ghost" onClick={() => onActionBtn('export')}>
-                <Download /> Export
-              </Button>
-              <Button
-                onClick={() => onActionBtn('deploy')}
-                className="text-white"
-                style={{ backgroundColor: Colors.BLUE }}
-              >
-                <Rocket /> Deploy
-              </Button>
-            </div>
-          )}
-
-          {/* User Image in Top Right */}
-          <div className="absolute top-4 right-4">
-            <Image
-              onClick={toggleSidebar}
-              src={userDetail?.picture}
-              alt="userImage"
-              width={40}
-              height={40}
-              className="rounded-full cursor-pointer object-cover"
-            />
-          </div>
-        </>
       )}
-      <SignInDialog openDialog={openDialog} closeDialog={setOpenDialog} />
+  
+      {/* Right: User Image */}
+      {userDetail?.picture ? (
+        <Image
+          onClick={toggleSidebar}
+          src={userDetail.picture}
+          alt="userImage"
+          width={40}
+          height={40}
+          className="rounded-full cursor-pointer object-cover"
+        />
+      ) : (
+        <Button
+          className="text-white"
+          style={{ backgroundColor: Colors.BLUE }}
+          onClick={() => setOpenDialog(true)}
+        >
+          Sign In
+        </Button>
+      )}
     </div>
+  
+    {/* --- Mobile Row 1 --- */}
+    <div className="flex sm:hidden justify-between items-center">
+      <Link href={'/'} className="flex items-center gap-2">
+        <div className="w-[40px] h-[40px] overflow-hidden rounded-full">
+          <Image src="/logo2.png" alt="logo" width={40} height={40} />
+        </div>
+        <div className="font-bold text-2xl">SnapSite</div>
+      </Link>
+  
+      {userDetail?.picture ? (
+        <Image
+          onClick={toggleSidebar}
+          src={userDetail.picture}
+          alt="userImage"
+          width={40}
+          height={40}
+          className="rounded-full cursor-pointer object-cover"
+        />
+      ) : (
+        <Button
+          className="text-white"
+          style={{ backgroundColor: Colors.BLUE }}
+          onClick={() => setOpenDialog(true)}
+        >
+          Sign In
+        </Button>
+      )}
+    </div>
+  
+    {/* --- Mobile Row 2: Export & Deploy Centered --- */}
+    {userDetail?.name && pathname.includes('/workspace/') && (
+      <div className="flex sm:hidden justify-center gap-3">
+        <Button variant="ghost" onClick={() => onActionBtn('export')}>
+          <Download className="mr-1" /> Export
+        </Button>
+        <Button
+          onClick={() => onActionBtn('deploy')}
+          className="text-white"
+          style={{ backgroundColor: Colors.BLUE }}
+        >
+          <Rocket className="mr-1" /> Deploy
+        </Button>
+      </div>
+    )}
+  
+    <SignInDialog openDialog={openDialog} closeDialog={setOpenDialog} />
+  </div>
+  
   );
 }
 

@@ -1,4 +1,3 @@
-
 "use client";
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -12,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
+import { DialogTitle } from "@/components/ui/dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -160,12 +160,13 @@ const Sidebar = React.forwardRef((
             }
           }
           side={side}>
+          {/* Add DialogTitle here */}
+          <DialogTitle className="sr-only">Sidebar</DialogTitle> {/* Visually hidden title */}
           <div className="flex h-full w-full flex-col">{children}</div>
         </SheetContent>
       </Sheet>)
     );
   }
-
   return (
     <>
       {/* Overlay (backdrop) */}

@@ -12,12 +12,19 @@ function WorkspaceHistory() {
   const convex = useConvex();
   const { toggleSidebar } = useSidebar();
   useEffect(() => {
-    userDetail && GetAllWorkspace();
+    if (userDetail && userDetail._id) {
+      GetAllWorkspace();
+    }
   }, [userDetail]);
 
   const GetAllWorkspace = async () => {
+    if (!userDetail?._id) {
+      console.error("User ID is missing");
+      return;
+    }
+  
     const result = await convex.query(api.workspace.GetAllWorkspace, {
-      userId: userDetail?._id,
+      userId: userDetail._id, // Ensure userId is passed
     });
     setWorkSpaceList(result);
   };
