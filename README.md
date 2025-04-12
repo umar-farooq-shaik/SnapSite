@@ -1,5 +1,7 @@
 # SnapSite
 
+🎥 [![Watch the Demo Video](public/thumbnail.png)](https://drive.google.com/file/d/1FQMUe2VaoyTS8RJr1djsZy7Y5LLVe1Cy/view?usp=drivesdk)
+
 SnapSite is a powerful web application that allows users to prompt, run, edit, and deploy full-stack web applications. It leverages modern technologies like Next.js, Tailwind CSS, and Convex to provide a seamless and intuitive experience for developers and non-developers alike.
 
 ## Features
@@ -20,11 +22,6 @@ SnapSite is a powerful web application that allows users to prompt, run, edit, a
 - **Authentication**: Google OAuth
 - **Payments**: PayPal integration
 - **Real-Time Code Editing**: Sandpack by CodeSandbox
-
-
-
-
-🎥 [![Watch the Demo Video](public/thumbnail.png)](https://drive.google.com/file/d/1FQMUe2VaoyTS8RJr1djsZy7Y5LLVe1Cy/view?usp=drivesdk)
 
 
 
